@@ -7,6 +7,8 @@ based on the [DHBW LaTeX Template by Prof. Dr. Pfisterer et al.](https://github.
 
 The template was built for DHBW Mannheim Data Science and AI course, but also has adapters for DHBW Karlsruhe and IHK.
 
+I intend to keep this fork up-to-date with changes on the original template from time to time.
+
 ## 🔧 Changes from the upstream ODERSO template
 
 This fork adapts the look and feel of the upstream template to match the DHBW LaTeX template. All changes are in `template/base.typ`:
@@ -53,13 +55,13 @@ For the following setup guide, make sure you have installed [Visual Studio Code]
 
 ## 💡 Feedback
 
-If you have any idea on how to **improve the template**, please check out the
+If you have any idea on how to **improve the template**, please check out the original template
 [development repository](https://github.com/dhbw-typst/oderso-template-dev).
 
 ## 😵‍💫 Troubleshooting
 
 >[!TIP]
->Don't hesitate to [open an issue](https://github.com/dhbw-typst/oderso-template-dev/issues/new) if you are puzzled on what is going on.
+>Don't hesitate to [open an issue](https://github.com/dhbw-typst/oderso-template-dev/issues/new) on the original template if you are puzzled on what is going on.
 
 Sometimes, Tinymist makes it a bit hard to diagnose the root cause of an issue.
 Then, it can be helpful to use the `typst` program directly!
