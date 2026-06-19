@@ -3,14 +3,29 @@
 # ODERSO Typst Template
 
 This is a university report template written in [Typst](https://typst.app/),
-based on the ["LaTeX-Vorlage für diverse Ausarbeitungen oder so ähnlich" by Prof. Dr. Jürgen Vollmer](https://www.karlsruhe.dhbw.de/fileadmin/user_upload/documents/content-de/Studiengaenge-Technik/Informatik/latex-vorlage-bericht.pdf) for LaTeX. [Why should you use Typst over LaTeX?](#-why-typst)
+based on the [DHBW LaTeX Template by Prof. Dr. Pfisterer et al.](https://github.com/pfisterer/DHBW_LaTeX_Template), which is used by the Data Science and Artificial Intelligence course at DHBW Mannheim. [Why should you use Typst over LaTeX?](#-why-typst)
 
-The template was built for DHBW Karlsruhe, but also has adapters for DHBW Mannheim and IHK.
+The template was built for DHBW Mannheim Data Science and AI course, but also has adapters for DHBW Karlsruhe and IHK.
+
+## 🔧 Changes from the upstream ODERSO template
+
+This fork adapts the look and feel of the upstream template to match the DHBW LaTeX template. All changes are in `template/base.typ`:
+
+- **Bullet point indent**: bullets are indented by 10pt (`set list(indent: 10pt)`).
+- **Line spacing**: `leading` set to `0.811em` to approximate LaTeX's `\onehalfspace`.
+- **Heading sizes** (matching KOMA-Script defaults at 12pt):
+  - Level 1 (chapter): 24pt
+  - Level 2 (section): 17pt
+  - Level 3 (subsection): 15pt
+- **Page margins**: `left: 2.55cm, rest: 2.5cm` to provide a small binding margin.
+- **Front-matter page numbering**: lowercase Roman (`i, ii, iii, …`) instead of uppercase.
+- **Page header**: redesigned to match the LaTeX template: "Chapter X" on the left and the chapter title on the right. The gray separator line below the header was removed and the header height was decreased.
+- **Header spacing**: `header-ascent: 55%` raises the header text further into the top margin so the gap between header and body matches the LaTeX's template.
 
 > [!TIP]
-> Want to see how the template looks? Download a preview PDF for [DHBW Karlsruhe](https://github.com/dhbw-typst/oderso-template/releases/latest/download/main-dhbw-ka.pdf), [DHBW Mannheim](https://github.com/dhbw-typst/oderso-template/releases/latest/download/main-dhbw-ma.pdf) or [IHK](https://github.com/dhbw-typst/oderso-template/releases/latest/download/main-ihk.pdf) to inspect the final result.
+> This fork does not publish release PDFs. To preview the template, compile `main-dhbw-ma.typ` locally (see [Getting Started](#%E2%80%8D-getting-started)).
 >
-> A description of all functions and properties can be found in the [package documentation]((https://github.com/dhbw-typst/oderso-template/releases/latest/download/documentation.pdf)).
+> For descriptions of all functions and properties, refer to the [upstream package documentation](https://github.com/dhbw-typst/oderso-template/releases/latest/download/documentation.pdf).
 
 ## 🏃‍♂️ Getting Started
 
@@ -34,7 +49,7 @@ For the following setup guide, make sure you have installed [Visual Studio Code]
    OR
    - Open the command palette (<kbd>CMD</kbd>+<kbd>Shift</kbd>+<kbd>P</kbd>) and select `Typst: Show exported PDF`
 
-**Look at the preview PDF ([DHBW Karlsruhe](https://github.com/dhbw-typst/oderso-template/releases/latest/download/main-dhbw-ka.pdf), [DHBW Mannheim](https://github.com/dhbw-typst/oderso-template/releases/latest/download/main-dhbw-ma.pdf), [IHK](https://github.com/dhbw-typst/oderso-template/releases/latest/download/main-ihk.pdf)) or the [package documentation](https://github.com/dhbw-typst/oderso-template/releases/latest/download/documentation.pdf) to learn how to use the package.**
+**To learn how to use the package, compile `main-dhbw-ma.typ` locally and refer to the [upstream package documentation](https://github.com/dhbw-typst/oderso-template/releases/latest/download/documentation.pdf).**
 
 ## 💡 Feedback
 

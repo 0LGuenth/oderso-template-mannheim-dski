@@ -155,19 +155,23 @@
 
   set bibliography(title: __linguify-content("bibliography"))
 
-  // page setup
+  // page setup (2.55cm to include 5mm binding correction)
   set document(title: title-long)
-  set page(paper: "a4", margin: (rest: 2.5cm))
+  set page(paper: "a4", margin: (left: 2.55cm, rest: 2.5cm))
 
   // set text language (e. g. for smart quotes)
   set text(lang: lang)
 
   // font setup (LaTeX Look: 'New Computer Modern')
+  //set text(font: "Times New Roman", size: 12pt)
   set text(font: "New Computer Modern", size: 12pt)
 
+  // indent Bullet Points by 10pt by default
+  set list(indent: 10pt)
+
   // justify content.
-  // Values researched in https://github.com/dhbw-typst/oderso-template-dev/pull/64 to match Arial 12pt and 1.5 line spacing in Microsoft Word
-  set par(justify: true, leading: 1.05em, spacing: 1.5em)
+  // Line spacing (leading) calibrated to LaTeX \onehalfspace by experimentation
+  set par(justify: true, leading: 0.811em, spacing: 1.5em)
 
   // tables settings
   show table: set par(justify: false)
@@ -182,7 +186,11 @@
 
   show heading.where(level: 2): it => {
     v(weak: true, 1.2cm)
-    it
+    text(size: 17pt, it)
+  }
+
+  show heading.where(level: 3): it => {
+    text(size: 15pt, it)
   }
 
   // fancy inline code
@@ -320,7 +328,7 @@
 
   // start page count on second page
   counter(page).update(1)
-  set page(numbering: "I")
+  set page(numbering: "i")
 
   // register abbreviations before content so references resolve
   if abbreviations.len() > 0 {
@@ -375,19 +383,31 @@
   }
 
   {
-    // display header
+    // display header (gray separator line removed)
+    // header-ascent raises the header text further into the top margin so there
+    // is more breathing room between header and body
     set page(
-      margin: (top: 4cm),
+      margin: (left: 2.55cm, rest: 2.5cm),
+      header-ascent: 55%,
       header: {
         context {
+          // Match LaTeX header: left = "Chapter X", right = chapter title
+          let chapter-label = hydra(1, display: (_, it) => {
+            if it.numbering != none {
+              (
+                "Chapter "
+                  + numbering(
+                    it.numbering,
+                    ..counter(heading).at(it.location()),
+                  )
+              )
+            }
+          })
+          let chapter-title = hydra(1, display: (_, it) => it.body)
           grid(
             columns: (auto, 1fr),
-            align(left, text(title-short)),
-            align(right, emph(hydra(1, display: (_, it) => {
-              it.body
-            }))),
+            align(left, emph(chapter-label)), align(right, emph(chapter-title)),
           )
-          line(length: 100%, stroke: (paint: gray))
         }
       },
       numbering: (..n) => context {
@@ -401,7 +421,7 @@
     )
     show heading.where(level: 1): it => {
       pagebreak(weak: true)
-      it
+      text(size: 24pt, it)
     }
 
     // reset page counter and show content
