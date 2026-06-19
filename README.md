@@ -60,9 +60,6 @@ If you have any idea on how to **improve the template**, please check out the or
 
 ## 😵‍💫 Troubleshooting
 
->[!TIP]
->Don't hesitate to [open an issue](https://github.com/dhbw-typst/oderso-template-dev/issues/new) on the original template if you are puzzled on what is going on.
-
 Sometimes, Tinymist makes it a bit hard to diagnose the root cause of an issue.
 Then, it can be helpful to use the `typst` program directly!
 To achieve this, open the terminal inside of your VSCode project and:
