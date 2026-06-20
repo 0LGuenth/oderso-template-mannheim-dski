@@ -1,6 +1,6 @@
 <img src="https://raw.githubusercontent.com/dhbw-typst/oderso-template-dev/refs/heads/main/banner.jpeg" width="100%" />
 
-# ODERSO Typst Template
+# ODERSO Typst Template Mannheim DSKI
 
 This is a university report template written in [Typst](https://typst.app/),
 based on the [DHBW LaTeX Template by Prof. Dr. Pfisterer et al.](https://github.com/pfisterer/DHBW_LaTeX_Template), which is used by the Data Science and Artificial Intelligence course at DHBW Mannheim. [Why should you use Typst over LaTeX?](#-why-typst)
