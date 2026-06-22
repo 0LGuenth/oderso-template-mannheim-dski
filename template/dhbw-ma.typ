@@ -284,10 +284,10 @@
     __submission-info: submission-info,
     __metadata: metadata,
     __confidentiality-clause: confidentiality-clause,
-    __postamble: (
+    __declarations: (
       statutory-declaration,
-      ..if (confidentiality-clause) { (confidentiality-clause-text,) },
       ..ai-declarations,
+      ..if (confidentiality-clause) { (confidentiality-clause-text,) },
     ),
     ..args,
   )

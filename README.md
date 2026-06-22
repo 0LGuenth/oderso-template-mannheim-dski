@@ -23,6 +23,7 @@ This fork adapts the look and feel of the upstream template to match the DHBW La
 - **Front-matter page numbering**: lowercase Roman (`i, ii, iii, …`) instead of uppercase.
 - **Page header**: redesigned to match the LaTeX template: "Chapter X" on the left and the chapter title on the right. The gray separator line below the header was removed and the header height was decreased.
 - **Header spacing**: `header-ascent: 55%` raises the header text further into the top margin so the gap between header and body matches the LaTeX's template.
+- **Declaration pages moved to front matter**: the statutory declaration, AI declaration, and confidentiality agreement are now rendered right after the coversheet (before the abstracts), in that order. The original template places them between the bibliography and the appendix.
 
 > [!TIP]
 > This fork does not publish release PDFs. To preview the template, compile `main-dhbw-ma.typ` locally (see [Getting Started](#%E2%80%8D-getting-started)).
