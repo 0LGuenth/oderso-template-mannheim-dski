@@ -391,6 +391,60 @@
     )
   }
 
+  // front-matter lists (abbreviations, glossary, figures, tables, code)
+  // Placed between the table of contents and the main body to match the
+  // LaTeX template layout (DHBW Mannheim).
+  {
+    set heading(numbering: none)
+
+    // index of abbreviations
+    if abbreviations.len() > 0 {
+      pagebreak()
+      heading(__linguify-content("abbreviations"))
+      print-glossary(abbreviations, deduplicate-back-references: true)
+    }
+
+    // index of glossary terms
+    if glossary.len() > 0 {
+      pagebreak()
+      heading(__linguify-content("glossary"))
+      print-glossary(glossary, deduplicate-back-references: true)
+    }
+
+    // only display certain outlines if elements for it exist
+    context {
+      // list of figures
+      if query(figure.where(kind: image)).len() > 0 {
+        pagebreak()
+        heading(__linguify-content("list-of-figures"))
+        outline(
+          target: figure.where(kind: image).before(<__appendix-start>),
+          title: none,
+        )
+      }
+
+      // list of tables
+      if query(figure.where(kind: table)).len() > 0 {
+        pagebreak()
+        heading(__linguify-content("list-of-tables"))
+        outline(
+          target: figure.where(kind: table).before(<__appendix-start>),
+          title: none,
+        )
+      }
+
+      // list of source code
+      if query(figure.where(kind: raw)).len() > 0 {
+        pagebreak()
+        heading(__linguify-content("list-of-code"))
+        outline(
+          target: figure.where(kind: raw).before(<__appendix-start>),
+          title: none,
+        )
+      }
+    }
+  }
+
   {
     // display header (gray separator line removed)
     // header-ascent raises the header text further into the top margin so there
@@ -452,59 +506,6 @@
     )
   } else {
     library
-  }
-
-  // lists (between content and appendix)
-  {
-    set heading(numbering: none)
-
-    // index of abbreviations
-    if abbreviations.len() > 0 {
-      pagebreak()
-      heading(__linguify-content("abbreviations"))
-      print-glossary(abbreviations, deduplicate-back-references: true)
-    }
-
-    // index of glossary terms
-    if glossary.len() > 0 {
-      pagebreak()
-      heading(__linguify-content("glossary"))
-      print-glossary(glossary, deduplicate-back-references: true)
-    }
-
-    // only display certain outlines if elements for it exist
-    context {
-      // list of figures
-      if query(figure.where(kind: image)).len() > 0 {
-        pagebreak()
-        heading(__linguify-content("list-of-figures"))
-        outline(
-          target: figure.where(kind: image).before(<__appendix-start>),
-          title: none,
-        )
-      }
-
-      // list of tables
-      if query(figure.where(kind: table)).len() > 0 {
-        pagebreak()
-        heading(__linguify-content("list-of-tables"))
-        outline(
-          target: figure.where(kind: table).before(<__appendix-start>),
-          title: none,
-        )
-      }
-
-      // list of source code
-      if query(figure.where(kind: raw)).len() > 0 {
-        pagebreak()
-        heading(__linguify-content("list-of-code"))
-        outline(
-          target: figure.where(kind: raw).before(<__appendix-start>),
-          title: none,
-        )
-      }
-    }
-
   }
 
   // display appendix
