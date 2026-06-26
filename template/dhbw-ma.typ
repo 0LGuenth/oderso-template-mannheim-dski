@@ -24,6 +24,8 @@
   digital-only: true,
   /// Whether to include a confidentiality clause page. -> bool
   confidentiality-clause: true,
+  /// Whether to include the AI declaration form(s). -> bool
+  include-ai-declaration: true,
   /// The examination degree, e.g., "Bachelor of Science (B.Sc.)". -> str
   examination: "Bachelor of Science (B.Sc.)",
   /// The field of study, e.g., "Computer Science". -> str
@@ -286,7 +288,7 @@
     __confidentiality-clause: confidentiality-clause,
     __declarations: (
       statutory-declaration,
-      ..ai-declarations,
+      ..if (include-ai-declaration) { ai-declarations },
       ..if (confidentiality-clause) { (confidentiality-clause-text,) },
     ),
     ..args,
