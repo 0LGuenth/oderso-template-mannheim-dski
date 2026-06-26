@@ -16,6 +16,8 @@
   /// Whether the thesis is submitted digitally. Affects the signature line
   /// display in the statutory declaration. -> bool
   digital-submission: true,
+  /// Whether to include the statutory declaration page. -> bool
+  include-statutory-declaration: true,
   /// Whether to include a confidentiality clause page. -> bool
   confidentiality-clause: true,
   /// The examination type (e.g., "Abschlussprüfung Teil 2"). -> str | none
@@ -127,7 +129,7 @@
     __metadata: metadata,
     __confidentiality-clause: confidentiality-clause,
     __declarations: (
-      statutory-declaration,
+      ..if (include-statutory-declaration) { (statutory-declaration,) },
       ..if (confidentiality-clause) { (confidentiality-clause-text,) },
     ),
     ..args,

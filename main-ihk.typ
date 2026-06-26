@@ -5,6 +5,9 @@
 #show: ihk-adapter.with(
   lang: "de",
 
+  // Set to false if you do not need a statutory decleration
+  include-statutory-declaration: true,
+
   // Set to false if you do not need a confidentiality clause
   confidentiality-clause: true,
 

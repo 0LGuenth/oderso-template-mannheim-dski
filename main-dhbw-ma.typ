@@ -14,6 +14,9 @@
   // Set to false if you do not need a confidentiality clause
   confidentiality-clause: true,
 
+  // Set to false if you do not need a statutory decleration
+  include-statutory-declaration: true,
+
   // Set to false to skip the AI declaration form(s)
   include-ai-declaration: true,
 

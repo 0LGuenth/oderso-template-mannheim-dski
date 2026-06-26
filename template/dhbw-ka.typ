@@ -21,6 +21,8 @@
   /// Whether the thesis is submitted digitally only (no printed copy).
   /// Affects the wording of the statutory declaration. -> bool
   digital-only: true,
+  /// Whether to include the statutory declaration page. -> bool
+  include-statutory-declaration: true,
   /// Whether to include a confidentiality clause page. -> bool
   confidentiality-clause: true,
   /// List of AI tools used in the thesis, according to section 4.6 of
@@ -233,7 +235,7 @@
     __metadata: metadata,
     __confidentiality-clause: confidentiality-clause,
     __declarations: (
-      statutory-declaration,
+      ..if (include-statutory-declaration) { (statutory-declaration,) },
       ..if (ai-acknowledgement.len() > 0) {
         (ai-acknowledgement-text,)
       },
