@@ -15,7 +15,7 @@
   confidentiality-clause: true,
 
   // Set to false to skip the AI declaration form(s)
-  include-ai-declaration: false,
+  include-ai-declaration: true,
 
   // Long title, displayed on cover slide
   title-long: "Writing in Typst about a long, very scientific topic",
