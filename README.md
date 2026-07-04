@@ -7,12 +7,18 @@ based on the [DHBW LaTeX Template by Prof. Dr. Pfisterer et al.](https://github.
 
 The template was built for DHBW Mannheim Data Science and AI course, but also has adapters for DHBW Karlsruhe and IHK.
 
+> **Tip:** Want to see how the template looks? Download a preview PDF for [DHBW Karlsruhe](https://github.com/0LGuenth/oderso-template-mannheim-dski/releases/latest/download/main-dhbw-ka.pdf), [DHBW Mannheim](https://github.com/0LGuenth/oderso-template-mannheim-dski/releases/latest/download/main-dhbw-ma.pdf) or [IHK](https://github.com/0LGuenth/oderso-template-mannheim-dski/releases/latest/download/main-ihk.pdf) to inspect the final result.
+
+
 I intend to keep this fork up-to-date with changes on the original template from time to time.
 
 ## 🔧 Changes from the upstream ODERSO template
 
-This fork adapts the look and feel of the upstream template to match the DHBW LaTeX template. All changes are in `template/base.typ`:
+This fork adapts the look and feel of the upstream template to match the DHBW LaTeX template. The following changes have been made:
 
+- **DSKI-style cover layout**: new `cover-layout-dski` toggle in the `dhbw-ma` adapter (default `true`) switches the cover sheet layout to match the cover sheet of the LaTeX template.
+- **Front-matter lists moved after the ToC**: abbreviations, glossary, list of figures, list of tables, and list of code are rendered right after the table of contents instead of at the end of the document.
+- **Toggles for declaration pages**: `include-statutory-declaration` (all adapters) and `include-ai-declaration` (`dhbw-ma`) let you skip either declaration. `include-ai-declaration` defaults to `true`.
 - **Bullet point indent**: bullets are indented by 10pt (`set list(indent: 10pt)`).
 - **Line spacing**: `leading` set to `0.811em` to approximate LaTeX's `\onehalfspace`.
 - **Heading sizes** (matching KOMA-Script defaults at 12pt):
@@ -26,8 +32,6 @@ This fork adapts the look and feel of the upstream template to match the DHBW La
 - **Declaration pages moved to front matter**: the statutory declaration, AI declaration, and confidentiality agreement are now rendered right after the coversheet (before the abstracts), in that order. The original template places them between the bibliography and the appendix.
 
 > [!TIP]
-> This fork does not publish release PDFs. To preview the template, compile `main-dhbw-ma.typ` locally (see [Getting Started](#%E2%80%8D-getting-started)).
->
 > For descriptions of all functions and properties, refer to the [upstream package documentation](https://github.com/dhbw-typst/oderso-template/releases/latest/download/documentation.pdf).
 
 ## 🏃‍♂️ Getting Started
@@ -37,7 +41,7 @@ This fork adapts the look and feel of the upstream template to match the DHBW La
 
 For the following setup guide, make sure you have installed [Visual Studio Code](https://code.visualstudio.com/).
 
-1. Click on [![Generate](https://img.shields.io/badge/Generate_from_template-8A2BE2?logo=github)](https://github.com/dhbw-typst/oderso-template/generate) and give your repository a telling name (e.g. `pa-1`)
+1. Click on [![Generate](https://img.shields.io/badge/Generate_from_template-8A2BE2?logo=github)](https://github.com/0LGuenth/oderso-template-mannheim-dski/generate) and give your repository a telling name (e.g. `pa-1`)
 2. Clone your repository to your local machine: `git clone https://github.com/<you>/pa-1.git`
 3. Open this directory using VSCode and install the recommended extensions
    - Tinymist (provides completions, preview and PDF-generation for your template)
@@ -52,12 +56,11 @@ For the following setup guide, make sure you have installed [Visual Studio Code]
    OR
    - Open the command palette (<kbd>CMD</kbd>+<kbd>Shift</kbd>+<kbd>P</kbd>) and select `Typst: Show exported PDF`
 
-**To learn how to use the package, compile `main-dhbw-ma.typ` locally and refer to the [upstream package documentation](https://github.com/dhbw-typst/oderso-template/releases/latest/download/documentation.pdf).**
+**Look at the preview PDF ([DHBW Karlsruhe](https://github.com/0LGuenth/oderso-template-mannheim-dski/releases/latest/download/main-dhbw-ka.pdf), [DHBW Mannheim](https://github.com/0LGuenth/oderso-template-mannheim-dski/releases/latest/download/main-dhbw-ma.pdf), [IHK](https://github.com/0LGuenth/oderso-template-mannheim-dski/releases/latest/download/main-ihk.pdf)) or the [original package documentation](https://github.com/dhbw-typst/oderso-template/releases/latest/download/documentation.pdf) to learn how to use the package.**
 
 ## 💡 Feedback
 
-If you have any idea on how to **improve the template**, please check out the original template
-[development repository](https://github.com/dhbw-typst/oderso-template-dev).
+If you have any idea on how to **improve the template**, please [open an issue](https://github.com/0LGuenth/oderso-template-mannheim-dski-dev/issues/new) or check out the original template's [development repository](https://github.com/dhbw-typst/oderso-template-dev).
 
 ## 😵‍💫 Troubleshooting
 
@@ -68,7 +71,7 @@ To achieve this, open the terminal inside of your VSCode project and:
 1. Download and install Typst: `brew install typst` (if you don't have `homebrew`, install it as shown [here](https://brew.sh/))
 2. Open a new terminal window and run `typst compile main.typ`
 3. Most of the time, the original error is at the top of the program's output
-4. If this doesn't help you to figure out the issue, please [open an issue](https://github.com/dhbw-typst/oderso-template-dev/issues/new)
+4. If this doesn't help you to figure out the issue, please [open an issue](https://github.com/0LGuenth/oderso-template-mannheim-dski-dev/issues/new)
 
 ## 🌐 Web-IDE (typst.app)
 

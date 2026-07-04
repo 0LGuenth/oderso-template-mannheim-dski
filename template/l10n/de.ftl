@@ -9,6 +9,7 @@ weeks = { $count } {
 submission-date = Abgabedatum
 processing-duration = Bearbeitungszeitraum
 course = Kurs
+author = Verfasser(in)
 training-company = Ausbildungsfirma
 department = Abteilung
 supervisor-at-training-company = Betreuer der Ausbildungsfirma

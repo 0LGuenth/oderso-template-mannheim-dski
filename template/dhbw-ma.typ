@@ -24,6 +24,17 @@
   digital-only: true,
   /// Whether to include a confidentiality clause page. -> bool
   confidentiality-clause: true,
+  /// Whether to use the Latex DSKI Coversheet. -> bool
+  cover-layout-dski: true,
+  /// Content rendered above the title on the DSKI cover layout.
+  /// Defaults to the institution name and city (e.g., "Duale Hochschule
+  /// Baden-Württemberg Mannheim") resolved via linguify from the document
+  /// language. Pass `none` to omit, or a custom `content` value to override. -> content | none
+  cover-info-top: auto,
+  /// Content rendered below the title on the DSKI cover layout.
+  /// Defaults to the value of `study` (the field of study). Pass `none` to
+  /// omit, or a custom `content` value to override. -> content | none
+  cover-info-bottom: auto,
   /// Whether to include the statutory declaration page. -> bool
   include-statutory-declaration: true,
   /// Whether to include the AI declaration form(s). -> bool
@@ -120,6 +131,12 @@
     ))
   ]
 
+  let cover_info_top = context [
+    #linguify-raw("dhbw-long") #linguify-raw("ma")
+  ]
+
+  let cover_info-bottom = study
+
   // TODO: only for compatibility reasons: Remove with v3.0.0 release
   if type(submission-date) == datetime {
     submission-date = submission-date.display(submission-date-format)
@@ -155,39 +172,81 @@
     }
   ]
 
-  let metadata = (
-    __linguify-content("submission-date"),
-    submission-date,
-    __linguify-content("processing-duration"),
-    __linguify-content("weeks", args: (count: processing-period-weeks)),
-    __linguify-content("matriculation-number")
-      + ", "
-      + __linguify-content("course"),
-    authors
-      .map(a => a.matriculation-number + ", " + a.course)
-      .join(linebreak()),
-    ..if company-name != none and company-city != none {
-      (
-        __linguify-content("training-company"),
-        company-name + linebreak() + company-city,
-      )
-    },
-    ..if company-department != none {
-      (__linguify-content("department"), company-department)
-    },
-    ..if company-supervisor.firstname != none
-      or company-supervisor.lastname != none {
-      (
-        __linguify-content("supervisor-at-training-company"),
-        company-supervisor-data,
-      )
-    },
-    ..if course-director != none {
-      (__linguify-content("course-director"), course-director)
-    },
-    __linguify-content("supervisor-at-university"),
-    university-supervisor-data,
-  )
+  let metadata = if cover-layout-dski {
+    (
+      __linguify-content("author"),
+      authors
+        .map(a => a.firstname + " " + a.lastname)
+        .join(linebreak()),
+      __linguify-content("matriculation-number"),
+      authors.map(a => a.matriculation-number).join(linebreak()),
+      __linguify-content("course"),
+      authors.map(a => a.course).join(linebreak()),
+      ..if company-name != none {
+        (
+          __linguify-content("training-company"),
+          if company-city != none {
+            company-name + linebreak() + company-city
+          } else {
+            company-name
+          },
+        )
+      },
+      ..if company-department != none {
+        (__linguify-content("department"), company-department)
+      },
+      ..if company-supervisor.firstname != none
+        or company-supervisor.lastname != none {
+        (
+          __linguify-content("supervisor-at-training-company"),
+          company-supervisor-data,
+        )
+      },
+      ..if course-director != none {
+        (__linguify-content("course-director"), course-director)
+      },
+      __linguify-content("supervisor-at-university"),
+      university-supervisor-data,
+      __linguify-content("submission-date"),
+      submission-date,
+    )
+  } else {
+    (
+      __linguify-content("submission-date"),
+      submission-date,
+      __linguify-content("processing-duration"),
+      __linguify-content("weeks", args: (count: processing-period-weeks)),
+      __linguify-content("matriculation-number")
+        + ", "
+        + __linguify-content("course"),
+      authors
+        .map(a => a.matriculation-number + ", " + a.course)
+        .join(linebreak()),
+      ..if company-name != none and company-city != none {
+        (
+          __linguify-content("training-company"),
+          company-name + linebreak() + company-city,
+        )
+      },
+      ..if company-department != none {
+        (__linguify-content("department"), company-department)
+      },
+      ..if company-supervisor.firstname != none
+        or company-supervisor.lastname != none {
+        (
+          __linguify-content("supervisor-at-training-company"),
+          company-supervisor-data,
+        )
+      },
+      ..if course-director != none {
+        (__linguify-content("course-director"), course-director)
+      },
+      __linguify-content("supervisor-at-university"),
+      university-supervisor-data,
+    )
+  }
+
+  
   let statutory-declaration = {
     pagebreak(weak: true)
     // Get course year of first author
@@ -286,6 +345,9 @@
     __logo-right: image("assets/DHBW-Logo.svg"),
     __authors: authors,
     __submission-info: submission-info,
+    __cover-layout-dski: cover-layout-dski,
+    __cover-info-top: cover_info_top,
+    __cover-info-bottom: cover_info-bottom,
     __metadata: metadata,
     __confidentiality-clause: confidentiality-clause,
     __declarations: (
