@@ -20,6 +20,15 @@
   include-statutory-declaration: true,
   /// Whether to include a confidentiality clause page. -> bool
   confidentiality-clause: true,
+  /// Whether to use the Latex DSKI Coversheet. -> bool
+  cover-layout-dski: true,
+  /// Content rendered above the title on the DSKI cover layout.
+  /// Defaults to "IHK". Pass `none` to omit, or a custom `content` value to override. -> content | none
+  cover-info-top: auto,
+  /// Content rendered below the title on the DSKI cover layout.
+  /// Defaults to the value of `training-occupation`. Pass `none` to omit,
+  /// or a custom `content` value to override. -> content | none
+  cover-info-bottom: auto,
   /// The examination type (e.g., "Abschlussprüfung Teil 2"). -> str | none
   examination: none,
   /// The training occupation (Ausbildungsberuf),
@@ -67,25 +76,66 @@
     #training-occupation
   ]
 
+  // Fallback defaults for the DSKI cover layout slots. `auto` means "use the
+  // adapter default"; `none` disables the slot; anything else is used as-is.
+  if cover-info-top == auto {
+    cover-info-top = [IHK]
+  }
+  if cover-info-bottom == auto {
+    cover-info-bottom = training-occupation
+  }
+
   // TODO: only for compatibility reasons: Remove with v3.0.0 release
   if type(submission-date) == datetime {
     submission-date = submission-date.display(submission-date-format)
   }
 
-  let metadata = (
-    __linguify-content("submission-date"),
-    submission-date,
-    __linguify-content("processing-duration"),
-    __linguify-content("weeks", args: (count: processing-period-weeks)),
-    __linguify-content("examinee-number"),
-    authors.map(a => a.examinee-number).join(linebreak()),
-    __linguify-content("training-company"),
-    company-name + linebreak() + company-city,
-    __linguify-content("department"),
-    company-department,
-    __linguify-content("supervisor-at-training-company"),
-    company-supervisor,
-  )
+  let metadata = if cover-layout-dski {
+    (
+      __linguify-content("author"),
+      authors
+        .map(a => a.firstname + " " + a.lastname)
+        .join(linebreak()),
+      __linguify-content("examinee-number"),
+      authors.map(a => a.examinee-number).join(linebreak()),
+      ..if company-name != none {
+        (
+          __linguify-content("training-company"),
+          if company-city != none {
+            company-name + linebreak() + company-city
+          } else {
+            company-name
+          },
+        )
+      },
+      ..if company-department != none {
+        (__linguify-content("department"), company-department)
+      },
+      ..if company-supervisor != none {
+        (
+          __linguify-content("supervisor-at-training-company"),
+          company-supervisor,
+        )
+      },
+      __linguify-content("submission-date"),
+      submission-date,
+    )
+  } else {
+    (
+      __linguify-content("submission-date"),
+      submission-date,
+      __linguify-content("processing-duration"),
+      __linguify-content("weeks", args: (count: processing-period-weeks)),
+      __linguify-content("examinee-number"),
+      authors.map(a => a.examinee-number).join(linebreak()),
+      __linguify-content("training-company"),
+      company-name + linebreak() + company-city,
+      __linguify-content("department"),
+      company-department,
+      __linguify-content("supervisor-at-training-company"),
+      company-supervisor,
+    )
+  }
   let statutory-declaration = {
     pagebreak(weak: true)
     align(center, heading(
@@ -126,6 +176,9 @@
     __logo-right: image("assets/IHK-Logo.svg"),
     __authors: authors,
     __submission-info: submission-info,
+    __cover-layout-dski: cover-layout-dski,
+    __cover-info-top: cover-info-top,
+    __cover-info-bottom: cover-info-bottom,
     __metadata: metadata,
     __confidentiality-clause: confidentiality-clause,
     __declarations: (

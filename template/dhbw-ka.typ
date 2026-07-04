@@ -25,6 +25,17 @@
   include-statutory-declaration: true,
   /// Whether to include a confidentiality clause page. -> bool
   confidentiality-clause: true,
+  /// Whether to use the Latex DSKI Coversheet. -> bool
+  cover-layout-dski: true,
+  /// Content rendered above the title on the DSKI cover layout.
+  /// Defaults to the institution name and city (e.g., "Duale Hochschule
+  /// Baden-Württemberg Karlsruhe") resolved via linguify from the document
+  /// language. Pass `none` to omit, or a custom `content` value to override. -> content | none
+  cover-info-top: auto,
+  /// Content rendered below the title on the DSKI cover layout.
+  /// Defaults to the value of `study` (the field of study). Pass `none` to
+  /// omit, or a custom `content` value to override. -> content | none
+  cover-info-bottom: auto,
   /// List of AI tools used in the thesis, according to section 4.6 of
   /// #link("https://www.karlsruhe.dhbw.de/fileadmin/user_upload/documents/content-de/Studiengaenge-Technik/Informatik/191212_Leitlinien_Praxismodule_Studien_Bachelorarbeiten.pdf")[Leitlinien für Wissenschaftliche Arbeiten]. Each entry should have
   /// `tool` (name) and `usage` (description of how it was used). -> array
@@ -91,38 +102,88 @@
     ))
   ]
 
+  // Fallback defaults for the DSKI cover layout slots. `auto` means "use the
+  // adapter default"; `none` disables the slot; anything else is used as-is.
+  if cover-info-top == auto {
+    cover-info-top = context [
+      #linguify-raw("dhbw-long") #linguify-raw("ka")
+    ]
+  }
+  if cover-info-bottom == auto {
+    cover-info-bottom = study
+  }
+
   // TODO: only for compatibility reasons: Remove with v3.0.0 release
   if type(submission-date) == datetime {
     submission-date = submission-date.display(submission-date-format)
   }
 
   // Metadata
-  let metadata = (
-    __linguify-content("submission-date"),
-    submission-date,
-    __linguify-content("processing-duration"),
-    __linguify-content("weeks", args: (count: processing-period-weeks)),
-    __linguify-content("matriculation-number")
-      + ", "
-      + __linguify-content("course"),
-    authors
-      .map(a => a.matriculation-number + ", " + a.course)
-      .join(linebreak()),
-    ..if company-name != none and company-city != none {
-      (
-        __linguify-content("training-company"),
-        company-name + linebreak() + company-city,
-      )
-    },
-    ..if company-department != none {
-      (__linguify-content("department"), company-department)
-    },
-    ..if company-supervisor != none {
-      (__linguify-content("supervisor-at-training-company"), company-supervisor)
-    },
-    __linguify-content("supervisor-at-university"),
-    university-supervisor,
-  )
+  let metadata = if cover-layout-dski {
+    (
+      __linguify-content("author"),
+      authors
+        .map(a => a.firstname + " " + a.lastname)
+        .join(linebreak()),
+      __linguify-content("matriculation-number"),
+      authors.map(a => a.matriculation-number).join(linebreak()),
+      __linguify-content("course"),
+      authors.map(a => a.course).join(linebreak()),
+      ..if company-name != none {
+        (
+          __linguify-content("training-company"),
+          if company-city != none {
+            company-name + linebreak() + company-city
+          } else {
+            company-name
+          },
+        )
+      },
+      ..if company-department != none {
+        (__linguify-content("department"), company-department)
+      },
+      ..if company-supervisor != none {
+        (
+          __linguify-content("supervisor-at-training-company"),
+          company-supervisor,
+        )
+      },
+      __linguify-content("supervisor-at-university"),
+      university-supervisor,
+      __linguify-content("submission-date"),
+      submission-date,
+    )
+  } else {
+    (
+      __linguify-content("submission-date"),
+      submission-date,
+      __linguify-content("processing-duration"),
+      __linguify-content("weeks", args: (count: processing-period-weeks)),
+      __linguify-content("matriculation-number")
+        + ", "
+        + __linguify-content("course"),
+      authors
+        .map(a => a.matriculation-number + ", " + a.course)
+        .join(linebreak()),
+      ..if company-name != none and company-city != none {
+        (
+          __linguify-content("training-company"),
+          company-name + linebreak() + company-city,
+        )
+      },
+      ..if company-department != none {
+        (__linguify-content("department"), company-department)
+      },
+      ..if company-supervisor != none {
+        (
+          __linguify-content("supervisor-at-training-company"),
+          company-supervisor,
+        )
+      },
+      __linguify-content("supervisor-at-university"),
+      university-supervisor,
+    )
+  }
 
   // AI-Declaration
   let ai-acknowledgement = ai-acknowledgement.filter(ack => (
@@ -232,6 +293,9 @@
     __logo-right: image("assets/DHBW-Logo.svg"),
     __authors: authors,
     __submission-info: submission-info,
+    __cover-layout-dski: cover-layout-dski,
+    __cover-info-top: cover-info-top,
+    __cover-info-bottom: cover-info-bottom,
     __metadata: metadata,
     __confidentiality-clause: confidentiality-clause,
     __declarations: (

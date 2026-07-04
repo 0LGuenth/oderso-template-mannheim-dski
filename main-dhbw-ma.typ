@@ -21,6 +21,9 @@
   // Set to false to skip the AI declaration form(s)
   include-ai-declaration: true,
 
+  // Set to false to use the classic cover layout instead of the DSKI layout
+  cover-layout-dski: true,
+
   // Long title, displayed on cover slide
   title-long: "Writing in Typst about a long, very scientific topic",
 

@@ -9,6 +9,7 @@ weeks = { $count } {
 submission-date = Submission Date
 processing-duration = Processing Period
 course = Course
+author = Author
 training-company = Training Company
 department = Department
 supervisor-at-training-company = Supervisor at Training Company

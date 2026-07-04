@@ -12,6 +12,9 @@
   // Set to false if you do not need a confidentiality clause
   confidentiality-clause: true,
 
+  // Set to false to use the classic cover layout instead of the DSKI layout
+  cover-layout-dski: true,
+
   title-long: "Writing in Typst about a long, very scientific topic",
   title-short: "Writing in Typst",
   thesis-type: "Abschlussprojekt",
