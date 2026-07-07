@@ -21,6 +21,9 @@
   // Set to false to use the classic cover layout instead of the DSKI layout
   cover-layout-dski: true,
 
+  // Set to false to hide the running header ("Chapter X" and chapter title).
+  header-show-chapter: true,
+
   // Add AI tools used for this thesis here, according to 4.6 of "Leitlinien für Wissenschaftliche Arbeiten in Bachelorstudiengängen Studienbereich Technik"
   ai-acknowledgement: (
     (

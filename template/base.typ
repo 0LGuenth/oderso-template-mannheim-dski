@@ -163,6 +163,10 @@
   glossary: (),
   /// Whether the content page numbering should include total pages ("3 / 24") or not ("3"). -> bool
   numbering-show-total: false,
+  /// Whether to show the running header on content pages ("Chapter X" on the
+  /// left, the chapter title on the right). When `false`, the header text is
+  /// hidden. -> bool
+  header-show-chapter: true,
   body,
 ) = {
   // load linguify
@@ -519,10 +523,17 @@
             }
           })
           let chapter-title = hydra(1, display: (_, it) => it.body)
-          grid(
+          let header-content = grid(
             columns: (auto, 1fr),
             align(left, emph(chapter-label)), align(right, emph(chapter-title)),
           )
+          // When disabled, hide the text but reserve its space so the header
+          // height (and therefore the body margins) stays identical.
+          if header-show-chapter {
+            header-content
+          } else {
+            hide(header-content)
+          }
         }
       },
       numbering: (..n) => context {
