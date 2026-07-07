@@ -15,6 +15,9 @@
   // Set to false to use the classic cover layout instead of the DSKI layout
   cover-layout-dski: true,
 
+  // Set to false to hide the running header ("Chapter X" and chapter title).
+  header-show-chapter: true,
+
   title-long: "Writing in Typst about a long, very scientific topic",
   title-short: "Writing in Typst",
   thesis-type: "Abschlussprojekt",
