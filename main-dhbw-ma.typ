@@ -24,6 +24,9 @@
   // Set to false to use the classic cover layout instead of the DSKI layout
   cover-layout-dski: true,
 
+  // Set to false to hide the running header ("Chapter X" and chapter title).
+  header-show-chapter: true,
+
   // Long title, displayed on cover slide
   title-long: "Writing in Typst about a long, very scientific topic",
 

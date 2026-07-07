@@ -163,6 +163,10 @@
   glossary: (),
   /// Whether the content page numbering should include total pages ("3 / 24") or not ("3"). -> bool
   numbering-show-total: false,
+  /// Whether to show the running header on content pages ("Chapter X" on the
+  /// left, the chapter title on the right). When `false`, the header is empty;
+  /// the body margins are unaffected either way. -> bool
+  header-show-chapter: true,
   body,
 ) = {
   // load linguify
@@ -504,7 +508,8 @@
     set page(
       margin: (left: 2.55cm, rest: 2.5cm),
       header-ascent: 55%,
-      header: {
+      // Toggles the Chapter text displayed inside the header
+      header: if header-show-chapter {
         context {
           // Match LaTeX header: left = "Chapter X", right = chapter title
           let chapter-label = hydra(1, display: (_, it) => {
