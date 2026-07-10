@@ -185,8 +185,9 @@
   //set text(font: "Times New Roman", size: 12pt)
   set text(font: "New Computer Modern", size: 12pt)
 
-  // indent Bullet Points by 10pt by default
+  // indent Bullet Points and Enumeration by 10pt by default
   set list(indent: 10pt)
+  set enum(indent: 10pt)
 
   // justify content.
   // Line spacing (leading) calibrated to LaTeX \onehalfspace by experimentation
