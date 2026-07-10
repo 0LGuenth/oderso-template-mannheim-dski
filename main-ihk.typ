@@ -18,6 +18,9 @@
   // Set to false to hide the running header ("Chapter X" and chapter title).
   header-show-chapter: true,
 
+  // Set to true to disable pagebreaks after chapter Headings
+  disable-pagebreak-after-heading: false,
+
   title-long: "Writing in Typst about a long, very scientific topic",
   title-short: "Writing in Typst",
   thesis-type: "Abschlussprojekt",

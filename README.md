@@ -19,7 +19,7 @@ This fork adapts the look and feel of the upstream template to match the DHBW La
 - **DSKI-style cover layout**: new `cover-layout-dski` toggle in the `dhbw-ma` adapter (default `true`) switches the cover sheet layout to match the cover sheet of the LaTeX template.
 - **Front-matter lists moved after the ToC**: abbreviations, glossary, list of figures, list of tables, and list of code are rendered right after the table of contents instead of at the end of the document.
 - **Toggles for declaration pages**: `include-statutory-declaration` (all adapters) and `include-ai-declaration` (`dhbw-ma`) let you skip either declaration. `include-ai-declaration` defaults to `true`.
-- **Bullet point indent**: bullets are indented by 10pt (`set list(indent: 10pt)`).
+- **Bullet point and enumeration indent**: bullets and enumerations are indented by 10pt (`set list(indent: 10pt)`, `set enum(indent: 10pt)`).
 - **Line spacing**: `leading` set to `0.811em` to approximate LaTeX's `\onehalfspace`.
 - **Heading sizes** (matching KOMA-Script defaults at 12pt):
   - Level 1 (chapter): 24pt
@@ -29,7 +29,8 @@ This fork adapts the look and feel of the upstream template to match the DHBW La
 - **Front-matter page numbering**: lowercase Roman (`i, ii, iii, …`) instead of uppercase.
 - **Page header**: redesigned to match the LaTeX template: "Chapter X" on the left and the chapter title on the right. The gray separator line below the header was removed and the header height was decreased.
 - **Header spacing**: `header-ascent: 55%` raises the header text further into the top margin so the gap between header and body matches the LaTeX's template.
-- **Header toggle**: `header-show-chapter` (all adapters) lets you toggle if the header should display `Chapter XXX` on the left side and `Chapter Name`on the right side, or not.
+- **Header toggle**: `header-show-chapter` lets you toggle if the header should display `Chapter XXX` on the left side and `Chapter Name`on the right side, or not.
+- **Page break after chapter Heading toggle**: `disable-pagebreak-after-heading` lets you toggle if you want to disable page breaks after chapter (level 1) Headings or not. Disabled by default.
 - **Declaration pages moved to front matter**: the statutory declaration, AI declaration, and confidentiality agreement are now rendered right after the coversheet (before the abstracts), in that order. The original template places them between the bibliography and the appendix.
 
 > [!TIP]

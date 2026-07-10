@@ -24,6 +24,9 @@
   // Set to false to hide the running header ("Chapter X" and chapter title).
   header-show-chapter: true,
 
+  // Set to true to disable pagebreaks after chapter Headings
+  disable-pagebreak-after-heading: false,
+
   // Add AI tools used for this thesis here, according to 4.6 of "Leitlinien für Wissenschaftliche Arbeiten in Bachelorstudiengängen Studienbereich Technik"
   ai-acknowledgement: (
     (

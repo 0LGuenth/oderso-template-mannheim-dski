@@ -27,6 +27,9 @@
   // Set to false to hide the running header ("Chapter X" and chapter title).
   header-show-chapter: true,
 
+  // Set to true to disable pagebreaks after chapter Headings
+  disable-pagebreak-after-heading: false,
+
   // Long title, displayed on cover slide
   title-long: "Writing in Typst about a long, very scientific topic",
 
