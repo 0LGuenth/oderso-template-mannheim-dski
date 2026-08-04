@@ -53,5 +53,3 @@
   For non-release PRs (`chore:`, `docs:`, `ci:`, …) you can delete this
   entire section including the `---` above.
 -->
-
--

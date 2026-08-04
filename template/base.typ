@@ -509,7 +509,7 @@
     // header-ascent raises the header text further into the top margin so there
     // is more breathing room between header and body
     set page(
-      margin: (left: 2.55cm, rest: 2.5cm),
+      margin: (left: 2.55cm, top: 2.9cm, rest: 2.5cm),
       header-ascent: 55%,
       // Toggles the Chapter text displayed inside the header
       header: if header-show-chapter {

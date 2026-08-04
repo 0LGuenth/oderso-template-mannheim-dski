@@ -29,7 +29,7 @@ The following changes have been made:
   - Level 3 (subsection): 15pt
 - **Page margins**: `left: 2.55cm, rest: 2.5cm` to provide a small binding margin.
 - **Front-matter page numbering**: lowercase Roman (`i, ii, iii, …`) instead of uppercase.
-- **Page header**: redesigned to match the LaTeX template: "Chapter X" on the left and the chapter title on the right. The gray separator line below the header was removed and the header height was decreased.
+- **Page header**: redesigned to match the LaTeX template: "Chapter X" on the left and the chapter title on the right. The gray separator line below the header was removed, and the header height was matched to the one from the LaTeX-Template by experimentation.
 - **Header spacing**: `header-ascent: 55%` raises the header text further into the top margin so the gap between header and body matches the LaTeX's template.
 - **Header toggle**: `header-show-chapter` lets you toggle if the header should display `Chapter XXX` on the left side and `Chapter Name`on the right side, or not.
 - **Page break after chapter Heading toggle**: `disable-pagebreak-after-heading` lets you toggle if you want to disable page breaks after chapter (level 1) Headings or not. Disabled by default.
