@@ -14,7 +14,9 @@ I intend to keep this fork up-to-date with changes on the original template from
 
 ## 🔧 Changes from the upstream ODERSO template
 
-This fork adapts the look and feel of the upstream template to match the DHBW LaTeX template. The following changes have been made:
+This fork adapts the look and feel of the upstream template to match the DHBW LaTeX template. You can change the font used for the document, just keep in mind that different fonts consume more (e.g. New Computer Modern) or less (e.g. Times New Roman) space for the exact same text. This might be important if you need to hit a specific number of pages in your submission.
+
+The following changes have been made:
 
 - **DSKI-style cover layout**: new `cover-layout-dski` toggle in the `dhbw-ma` adapter (default `true`) switches the cover sheet layout to match the cover sheet of the LaTeX template.
 - **Front-matter lists moved after the ToC**: abbreviations, glossary, list of figures, list of tables, and list of code are rendered right after the table of contents instead of at the end of the document.
