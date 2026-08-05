@@ -22,6 +22,10 @@
   /// Whether the thesis is submitted digitally only (no printed copy).
   /// Affects the wording of the statutory declaration. -> bool
   digital-only: true,
+  /// Whether the AI declaration form is filled digitally (renders your text content instead of blank lines).
+  /// Defaults to `digital-only` when set to `auto`. Set to `true` to always render content digitally,
+  /// even when `digital-only` is `false` (e.g. printed thesis but digital AI form). -> bool | auto
+  ai-declaration-digital: auto,
   /// Whether to include a confidentiality clause page. -> bool
   confidentiality-clause: true,
   /// Whether to use the Latex DSKI Coversheet. -> bool
@@ -315,10 +319,16 @@
     __linguify-content("confidentiality-agreement-note-dhbw")
   }
 
+  let ai-declaration-digital-resolved = if ai-declaration-digital == auto {
+    digital-only
+  } else {
+    ai-declaration-digital
+  }
+
   let ai-declarations = ()
   for a in authors {
     let ai-declaration = ai-declaration-form(
-      digital: digital-only,
+      digital: ai-declaration-digital-resolved,
       name: a.lastname + ", " + a.firstname,
       identification-number: a.matriculation-number,
       address: a.address,

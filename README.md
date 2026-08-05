@@ -19,21 +19,22 @@ This fork adapts the look and feel of the upstream template to match the DHBW La
 The following changes have been made:
 
 - **DSKI-style cover layout**: new `cover-layout-dski` toggle in the `dhbw-ma` adapter (default `true`) switches the cover sheet layout to match the cover sheet of the LaTeX template.
+- **Declaration pages moved to front matter**: the statutory declaration, AI declaration, and confidentiality agreement are now rendered right after the coversheet (before the abstracts), in that order. The original template places them between the bibliography and the appendix.
 - **Front-matter lists moved after the ToC**: abbreviations, glossary, list of figures, list of tables, and list of code are rendered right after the table of contents instead of at the end of the document.
-- **Toggles for declaration pages**: `include-statutory-declaration` (all adapters) and `include-ai-declaration` (`dhbw-ma`) let you skip either declaration. `include-ai-declaration` defaults to `true`.
-- **Bullet point and enumeration indent**: bullets and enumerations are indented by 10pt (`set list(indent: 10pt)`, `set enum(indent: 10pt)`).
+- **Front-matter page numbering**: lowercase Roman (`i, ii, iii, …`) instead of uppercase.
+- **Page margins**: `left: 2.55cm, rest: 2.5cm` to provide a small binding margin.
 - **Line spacing**: `leading` set to `0.811em` to approximate LaTeX's `\onehalfspace`.
 - **Heading sizes** (matching KOMA-Script defaults at 12pt):
   - Level 1 (chapter): 24pt
   - Level 2 (section): 17pt
   - Level 3 (subsection): 15pt
-- **Page margins**: `left: 2.55cm, rest: 2.5cm` to provide a small binding margin.
-- **Front-matter page numbering**: lowercase Roman (`i, ii, iii, …`) instead of uppercase.
+- **Bullet point and enumeration indent**: bullets and enumerations are indented by 10pt (`set list(indent: 10pt)`, `set enum(indent: 10pt)`).
 - **Page header**: redesigned to match the LaTeX template: "Chapter X" on the left and the chapter title on the right. The gray separator line below the header was removed, and the header height was matched to the one from the LaTeX-Template by experimentation.
 - **Header spacing**: `header-ascent: 55%` raises the header text further into the top margin so the gap between header and body matches the LaTeX's template.
-- **Header toggle**: `header-show-chapter` lets you toggle if the header should display `Chapter XXX` on the left side and `Chapter Name`on the right side, or not.
-- **Page break after chapter Heading toggle**: `disable-pagebreak-after-heading` lets you toggle if you want to disable page breaks after chapter (level 1) Headings or not. Disabled by default.
-- **Declaration pages moved to front matter**: the statutory declaration, AI declaration, and confidentiality agreement are now rendered right after the coversheet (before the abstracts), in that order. The original template places them between the bibliography and the appendix.
+- **Header toggle**: `header-show-chapter` lets you toggle if the header should display `Chapter XXX` on the left side and `Chapter Name` on the right side, or not.
+- **Toggles for declaration pages**: `include-statutory-declaration` (all adapters) and `include-ai-declaration` (`dhbw-ma`) let you skip either declaration. `include-ai-declaration` defaults to `true`.
+- **AI declaration digital toggle**: `ai-declaration-digital` (`dhbw-ma`) controls whether the AI declaration form renders your content digitally or shows blank lines for handwriting. Defaults to `auto`, which mirrors `digital-only`. Set to `true` to render content digitally even when submitting a printed copy and vice versa for false.
+- **Page break after chapter heading toggle**: `disable-pagebreak-after-heading` lets you toggle if you want to disable page breaks after chapter (level 1) headings or not. Disabled by default.
 
 > [!TIP]
 > For descriptions of all functions and properties, refer to the [upstream package documentation](https://github.com/dhbw-typst/oderso-template/releases/latest/download/documentation.pdf).
