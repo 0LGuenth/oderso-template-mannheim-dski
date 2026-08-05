@@ -33,6 +33,7 @@ The following changes have been made:
 - **Header spacing**: `header-ascent: 55%` raises the header text further into the top margin so the gap between header and body matches the LaTeX's template.
 - **Header toggle**: `header-show-chapter` lets you toggle if the header should display `Chapter XXX` on the left side and `Chapter Name` on the right side, or not.
 - **Toggles for declaration pages**: `include-statutory-declaration` (all adapters) and `include-ai-declaration` (`dhbw-ma`) let you skip either declaration. `include-ai-declaration` defaults to `true`.
+- **AI declaration digital toggle**: `ai-declaration-digital` (`dhbw-ma`) controls whether the AI declaration form renders your content digitally or shows blank lines for handwriting. Defaults to `auto`, which mirrors `digital-only`. Set to `true` to render content digitally even when submitting a printed copy and vice versa for false.
 - **Page break after chapter heading toggle**: `disable-pagebreak-after-heading` lets you toggle if you want to disable page breaks after chapter (level 1) headings or not. Disabled by default.
 
 > [!TIP]
