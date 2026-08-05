@@ -12,6 +12,9 @@
   // Set to false if you also submit a printed copy of your thesis. Important for the statutory declaration
   digital-only: true,
 
+  // Set to true to render your AI declaration content digitally even when digital-only is false
+  ai-declaration-digital: auto,
+
   // Set to false if you do not need a confidentiality clause
   confidentiality-clause: true,
 
