@@ -22,6 +22,10 @@
   /// Whether the thesis is submitted digitally only (no printed copy).
   /// Affects the wording of the statutory declaration. -> bool
   digital-only: true,
+  /// Selects the statutory declaration wording. `true` uses the DSKI LaTeX
+  /// source with the work title, `false` uses the current wording,
+  /// and `auto` preserves the course-year-based behavior. -> bool | auto
+  use-old-statutory-declaration: true,
   /// Whether the AI declaration form is filled digitally (renders your text content instead of blank lines).
   /// Defaults to `digital-only` when set to `auto`. Set to `true` to always render content digitally,
   /// even when `digital-only` is `false` (e.g. printed thesis but digital AI form). -> bool | auto
@@ -262,7 +266,12 @@
 
     // TODO: The statutory declaration changed for courses starting in 2024. This complicated edge case for courses from 2023
     // and earlier can safely be removed by September 2026
-    let statuatory-declaration = if course-year < 24 {
+    let statuatory-declaration = if use-old-statutory-declaration == true {
+      __linguify-content("statutory-declaration-note-dhbw-latex", args: (
+        author-count: authors.len(),
+        title: args.at("title-long"),
+      ))
+    } else if use-old-statutory-declaration == auto and course-year < 24 {
       __linguify-content("statutory-declaration-note-dhbw-old", args: (
         author-count: authors.len(),
         title: args.at("title-long"),
@@ -274,7 +283,10 @@
       ))
     }
 
-    let statuatory-declaration-printed = if course-year < 24 {
+    let statuatory-declaration-printed = if (
+      use-old-statutory-declaration == true
+        or (use-old-statutory-declaration == auto and course-year < 24)
+    ) {
       __linguify-content("statutory-declaration-note-dhbw-old-printed", args: (
         author-count: authors.len(),
       ))

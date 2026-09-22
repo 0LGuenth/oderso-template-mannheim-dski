@@ -15,6 +15,9 @@
   // Set to false if you also submit a printed copy of your thesis. Important for the statutory declaration
   digital-only: true,
 
+  // true matches the DSKI LaTeX declaration, auto detects the course year, false uses the current declaration.
+  use-old-statutory-declaration: true,
+
   // Set to false if you do not need a statutory decleration
   include-statutory-declaration: true,
 
