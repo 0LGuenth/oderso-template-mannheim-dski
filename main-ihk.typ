@@ -6,6 +6,9 @@
 #show: ihk-adapter.with(
   lang: "de",
 
+  // Set to content such as [DRAFT] to show a watermark in the page margins.
+  watermark: none,
+
   // Set to false if you do not need a statutory decleration
   include-statutory-declaration: true,
 
