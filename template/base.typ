@@ -165,6 +165,8 @@
   glossary: (),
   /// Whether the content page numbering should include total pages ("3 / 24") or not ("3"). -> bool
   numbering-show-total: false,
+  /// Watermark places the provided `content` in the left and right page margins. -> content | none
+  watermark: none,
   /// Whether to show the running header on content pages ("Chapter X" on the
   /// left, the chapter title on the right). When `false`, the header is empty;
   /// the body margins are unaffected either way. -> bool
@@ -178,7 +180,25 @@
 
   // page setup (2.55cm to include 5mm binding correction)
   set document(title: title-long)
-  set page(paper: "a4", margin: (left: 2.55cm, rest: 2.5cm))
+  set page(
+    paper: "a4",
+    margin: (left: 2.55cm, rest: 2.5cm),
+    background: if watermark != none {
+      let watermark-text = text(15pt, fill: rgb("#ff00004b"), watermark)
+      (
+        (pos: start + horizon, dx: 20pt, rot: -90deg),
+        (pos: end + horizon, dx: -20pt, rot: 90deg),
+      )
+        .map(side => {
+          place(side.pos, dx: side.dx, rotate(
+            side.rot,
+            reflow: true,
+            watermark-text,
+          ))
+        })
+        .join()
+    },
+  )
 
   // set text language (e. g. for smart quotes)
   set text(lang: lang)
@@ -283,7 +303,7 @@
   // follow IEEE style for equation references: `(1)` instead of `equation 1`
   show ref: it => {
     if it.element != none and it.element.func() == math.equation {
-      numbering("(1)", ..counter(math.equation).at(it.target))
+      link(it.target, numbering("(1)", ..counter(math.equation).at(it.target)))
     } else {
       it
     }
