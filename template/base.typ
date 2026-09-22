@@ -457,6 +457,7 @@
   // table of contents
   // show level 1 headings in outline in a fancier way, if not desired feel free to remove it
   pagebreak(weak: true)
+  [#[] <__toc-start>]
   {
     show outline.entry.where(level: 1): strong
     set par(leading: 0.65em)
@@ -464,9 +465,9 @@
       title: __linguify-content("table-of-contents"),
       depth: 3,
       indent: auto,
-      target: selector(heading).before(
-        <__appendix-start>,
-      ),
+      target: selector(heading)
+        .after(<__toc-start>)
+        .before(<__appendix-start>),
     )
   }
 
