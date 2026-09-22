@@ -1,4 +1,4 @@
-<img src="https://raw.githubusercontent.com/dhbw-typst/oderso-template-dev/refs/heads/main/banner.jpeg" width="100%" />
+<img alt="Banner explaining why Typst is better than LaTeX" src="https://raw.githubusercontent.com/dhbw-typst/oderso-template-dev/c81d3f24e453e59ed817c8bfc42fd6fffc448581/banner.jpeg" width="100%" />
 
 # ODERSO Typst Template Mannheim DSKI
 
@@ -36,17 +36,21 @@ The following changes have been made:
 - **AI declaration digital toggle**: `ai-declaration-digital` (`dhbw-ma`) controls whether the AI declaration form renders your content digitally or shows blank lines for handwriting. Defaults to `auto`, which mirrors `digital-only`. Set to `true` to render content digitally even when submitting a printed copy and vice versa for false.
 - **Page break after chapter heading toggle**: `disable-pagebreak-after-heading` lets you toggle if you want to disable page breaks after chapter (level 1) headings or not. Disabled by default.
 
-> [!TIP]
-> For descriptions of all functions and properties, refer to the [upstream package documentation](https://github.com/dhbw-typst/oderso-template/releases/latest/download/documentation.pdf).
+> **Tip:** For descriptions of all functions and properties, refer to the [upstream package documentation](https://github.com/dhbw-typst/oderso-template/releases/latest/download/documentation.pdf).
 
 ## 🏃‍♂️ Getting Started
 
-> [!TIP]
-> If you run into any issues, check out the [troubleshooting guide](#%E2%80%8D-troubleshooting).
+> **Tip:** If you run into any issues, check out the [troubleshooting guide](#%E2%80%8D-troubleshooting).
 
-For the following setup guide, make sure you have installed [Visual Studio Code](https://code.visualstudio.com/).
+For the following setup guides, make sure you have installed [Visual Studio Code](https://code.visualstudio.com/).
 
-1. Click on [![Generate](https://img.shields.io/badge/Generate_from_template-8A2BE2?logo=github)](https://github.com/0LGuenth/oderso-template-mannheim-dski/generate) and give your repository a telling name (e.g. `pa-1`)
+Or if you don't want to edit your document locally, you can use the Typst web editor. Go to [typst.app](https://typst.app) to find out more.
+
+> **Caution:** If writing a thesis at your company, make sure you are allowed to use the online editor, as this might violate a confidentiality clause you signed.
+
+### Initialize from Template Repository
+
+1. Click on [![Generate from template button](https://img.shields.io/badge/Generate_from_template-8A2BE2?logo=github)](https://github.com/0LGuenth/oderso-template-mannheim-dski/generate) and give your repository a telling name (e.g. `pa-1`)
 2. Clone your repository to your local machine: `git clone https://github.com/<you>/pa-1.git`
 3. Open this directory using VSCode and install the recommended extensions
    - Tinymist (provides completions, preview and PDF-generation for your template)
@@ -65,7 +69,7 @@ For the following setup guide, make sure you have installed [Visual Studio Code]
 
 ## 💡 Feedback
 
-If you have any idea on how to **improve the template**, please [open an issue](https://github.com/0LGuenth/oderso-template-mannheim-dski-dev/issues/new) or check out the original template's [development repository](https://github.com/dhbw-typst/oderso-template-dev).
+If you have any ideas or suggestions to **improve the template**, please [open an issue](https://github.com/0LGuenth/oderso-template-mannheim-dski-dev/issues/new) or check out the original template's [development repository](https://github.com/dhbw-typst/oderso-template-dev).
 
 ## 😵‍💫 Troubleshooting
 
@@ -77,13 +81,6 @@ To achieve this, open the terminal inside of your VSCode project and:
 2. Open a new terminal window and run `typst compile main.typ`
 3. Most of the time, the original error is at the top of the program's output
 4. If this doesn't help you to figure out the issue, please [open an issue](https://github.com/0LGuenth/oderso-template-mannheim-dski-dev/issues/new)
-
-## 🌐 Web-IDE (typst.app)
-
-You can use the typst web editor to edit your typst document. Go to [typst.app](https://typst.app) to find out more.
-
-> [!CAUTION]
-> If writing a thesis at your company, make sure you are allowed to use the online editor, as this might violate a confidentiality clause you signed.
 
 ## ❓ Why Typst?
 
@@ -105,3 +102,12 @@ The goal of this template is to make writing your thesis at DHBW as easy as poss
 
 - [clean-dhbw](https://typst.app/universe/package/clean-dhbw/): A template written by a professor of the DHBW Karlsruhe. We found it to be fairly opinionated and limited in customization. It also lacks many features this template provides.
 - [supercharged-dhbw](https://typst.app/universe/package/supercharged-dhbw/): Another template for DHBW Karlsruhe students. As of May 2026, the last commit was over a year old, so outdated package versions may cause issues with the latest version of Typst. We do not recommend using an unmaintained template, especially for users less familiar with Typst.
+
+## Assets Included in this Template
+
+This template includes some assets that fall under different licenses than the rest of the template:
+
+- **`placeholder-comany-logo.svg`**: [Source](https://logoipsum.com/artwork/415) · [Fair Use License](https://logoipsum.com/license)
+- **`placeholder-signature.png`**: [Source](https://upload.wikimedia.org/wikipedia/commons/thumb/6/62/Friedrich_Schiller_Signature.svg/1280px-Friedrich_Schiller_Signature.svg.png) · [Public Domain](https://commons.wikimedia.org/wiki/File:Friedrich_Schiller_Signature.svg)
+- **`IHK-Logo.svg`**: [Source](https://upload.wikimedia.org/wikipedia/commons/1/12/IHK-logo.svg) · [Public Domain](https://de.wikipedia.org/wiki/Datei:IHK-logo.svg) · ⚠️ Trademark of the [DIHK](https://www.dihk.de/)
+- **`DHBW-Logo.svg`**: [Source](https://upload.wikimedia.org/wikipedia/de/1/1d/DHBW-Logo.svg) · ⚠️ Trademark of the [DHBW](https://www.dhbw.de/startseite)

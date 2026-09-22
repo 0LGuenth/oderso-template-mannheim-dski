@@ -6,6 +6,9 @@
 #show: dhbw-ka-adapter.with(
   lang: "en",
 
+  // Set to content such as [DRAFT] to show a watermark in the page margins.
+  watermark: none,
+
   // Wether to display a signature line for the statutory declaration
   digital-submission: true,
 
