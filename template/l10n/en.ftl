@@ -87,7 +87,7 @@ statutory-declaration-note-dhbw-old-printed = { $author-count ->
 confidentiality-agreement-note-dhbw = The contents of this work may not be made accessible, in whole or in part, to persons outside the examination process and the evaluation procedure, unless otherwise authorized by the Dual Partner.
 ai-acknowledgement-heading-dhbw = AI Acknowledgement
 #### MA
-ai-dec-title = Declaration on the Use of AI-Based Tools in Scientific Works
+ai-dec-title = Declaration on the Use of IT- and AI-Based Tools in the Creation of Academic Work
 ai-dec-personal-information = Personal Information
 ai-dec-last-first-name = Last Name, First Name
 ai-dec-matriculation-number = Matriculation Number
@@ -112,7 +112,7 @@ signature-student = *Signature Student*
 ai-dec-intro = *For the use of AI-based tools, taking note of the declaration paper: "Hinweise zum Einsatz von KI-basierten Werkzeugen bei der Anfertigung wissenschaftlicher Arbeiten und die prüfungsrechtlichen Folgen ihres Einsatzes", I declare the following:*
 ai-dec-informed-performance-restrictions = I actively informed myself about the capabilities and limitations of the AI-based tools used in my work.
 ai-dec-informed-capabilities-restrictions = I have informed myself about the capabilities and restrictions of the AI-based tools used in my thesis.
-ai-dec-independence-controlling = During the creation process of this examination work, I continuously worked independently and within the use of AI-based tools I worked significantly controlling.
+ai-dec-independence-controlling = During the creation process of this examination work, I continuously worked independently and maintained primary control over the use of AI-assisted tools.
 ai-dec-scientific-independent-work = In particular I either derived the content from scientific or other authorized sources and marked them, or I developed them myself using scientific methods.
 ai-dec-scientific-responsibility = I am aware that I (as the author) take the responsibility for all information and statements in the thesis.
 ai-dec-no-other-tools = I did not use any AI-based tools for the creation of this work other than those specified below, and have used them only in the manner indicated.
