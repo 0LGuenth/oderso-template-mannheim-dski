@@ -65,7 +65,7 @@
 
   align(center, grid(
     stroke: none,
-    columns: (30mm, 30mm, 20mm, 80mm),
+    columns: (40mm, 30mm, 20mm, 80mm),
     ..signature-content,
     grid.hline(end: 2), grid.hline(start: 3),
     __linguify-content("place-of-signature"),
