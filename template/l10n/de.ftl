@@ -47,7 +47,7 @@ list-of-appendices = Anhangsverzeichnis
 
 
 ### DHBW
-dhbw-long = Dualen Hochschule Baden-Württemberg
+dhbw-long = Duale Hochschule Baden-Württemberg
 ka = Karlsruhe
 ma = Mannheim
 as-part-of-examination-dhbw = für die Prüfung zum
