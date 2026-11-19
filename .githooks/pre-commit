@@ -1,0 +1,104 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+if [[ "${SKIP_PDF_CHECK:-0}" == "1" ]]; then
+  exit 0
+fi
+
+# Skip only if all staged changes are non-PDF files (docs, CI, hooks, editor config).
+if ! git diff --cached --name-only --diff-filter=ACMRD | grep -qvE '^(\.github/|\.githooks/|\.vscode/|\.gitignore$|LICENSE$|.*\.md$)'; then
+  exit 0
+fi
+
+for cmd in typst pdfinfo pdftotext pdftohtml pdftoppm compare; do
+  if ! command -v "$cmd" >/dev/null 2>&1; then
+    echo "pdf-diff hook: missing required tool '$cmd' (skip with --no-verify or SKIP_PDF_CHECK=1)" >&2
+    exit 1
+  fi
+done
+
+TMP_DIR="$(mktemp -d)"
+trap 'rm -rf "$TMP_DIR"' EXIT
+
+BEFORE_SRC="$TMP_DIR/before-src"
+AFTER_SRC="$TMP_DIR/after-src"
+BEFORE_PDF="$TMP_DIR/before-pdf"
+AFTER_PDF="$TMP_DIR/after-pdf"
+mkdir -p "$BEFORE_SRC" "$AFTER_SRC" "$BEFORE_PDF" "$AFTER_PDF"
+
+# Export HEAD and staged index so unstaged working-tree edits do not interfere.
+git archive HEAD | tar -x -C "$BEFORE_SRC"
+git checkout-index --all --prefix="$AFTER_SRC/"
+
+has_diff=0
+
+for typ_file in "$AFTER_SRC"/main-*.typ; do
+  base="$(basename "$typ_file" .typ)"
+  echo "Checking $base.typ..."
+
+  if [[ ! -f "$BEFORE_SRC/$base.typ" ]]; then
+    echo "  [NEW] $base.typ did not exist in HEAD."
+    has_diff=1
+    continue
+  fi
+
+  typst compile "$BEFORE_SRC/$base.typ" "$BEFORE_PDF/$base.pdf" 2>/dev/null
+  typst compile "$AFTER_SRC/$base.typ" "$AFTER_PDF/$base.pdf" 2>/dev/null
+
+  # 1. Page count check
+  pages_before="$(pdfinfo "$BEFORE_PDF/$base.pdf" | awk '/^Pages:/ {print $2}')"
+  pages_after="$(pdfinfo "$AFTER_PDF/$base.pdf" | awk '/^Pages:/ {print $2}')"
+  if [[ "$pages_before" != "$pages_after" ]]; then
+    echo "  [PAGE COUNT DIFF] $base: $pages_before -> $pages_after pages"
+    has_diff=1
+  fi
+
+  # 2. Text diff check
+  pdftotext "$BEFORE_PDF/$base.pdf" "$BEFORE_PDF/$base.txt"
+  pdftotext "$AFTER_PDF/$base.pdf" "$AFTER_PDF/$base.txt"
+  if ! diff -u "$BEFORE_PDF/$base.txt" "$AFTER_PDF/$base.txt" > "$TMP_DIR/$base-text.diff"; then
+    echo "  [TEXT DIFF] $base:"
+    head -n 20 "$TMP_DIR/$base-text.diff" | sed 's/^/    /'
+    has_diff=1
+  fi
+
+  # 3. PDF outline/bookmark diff check
+  pdftohtml -xml -i -stdout "$BEFORE_PDF/$base.pdf" 2>/dev/null | sed -n '/<outline>/,/<\/outline>/p' > "$BEFORE_PDF/$base-outline.xml"
+  pdftohtml -xml -i -stdout "$AFTER_PDF/$base.pdf" 2>/dev/null | sed -n '/<outline>/,/<\/outline>/p' > "$AFTER_PDF/$base-outline.xml"
+  if ! diff -u "$BEFORE_PDF/$base-outline.xml" "$AFTER_PDF/$base-outline.xml" > "$TMP_DIR/$base-outline.diff"; then
+    echo "  [OUTLINE DIFF] $base:"
+    head -n 20 "$TMP_DIR/$base-outline.diff" | sed 's/^/    /'
+    has_diff=1
+  fi
+
+  # 4. Visual pixel diff check
+  mkdir -p "$BEFORE_PDF/$base-png" "$AFTER_PDF/$base-png"
+  pdftoppm -png -r 100 "$BEFORE_PDF/$base.pdf" "$BEFORE_PDF/$base-png/p"
+  pdftoppm -png -r 100 "$AFTER_PDF/$base.pdf" "$AFTER_PDF/$base-png/p"
+
+  for img_before in "$BEFORE_PDF/$base-png"/p-*.png; do
+    page_name="$(basename "$img_before")"
+    img_after="$AFTER_PDF/$base-png/$page_name"
+    if [[ ! -f "$img_after" ]]; then
+      echo "  [VISUAL DIFF] $base $page_name removed"
+      has_diff=1
+      continue
+    fi
+    diff_metric="$(compare -metric AE "$img_before" "$img_after" /dev/null 2>&1 || true)"
+    diff_px="${diff_metric%% *}"
+    if [[ "$diff_px" != "0" ]]; then
+      echo "  [VISUAL DIFF] $base $page_name: $diff_px pixels differ"
+      has_diff=1
+    fi
+  done
+done
+
+if [[ "$has_diff" -eq 0 ]]; then
+  echo "PDF check passed: no visual, text, page-count, or outline differences."
+  exit 0
+fi
+
+echo ""
+echo "Commit aborted because PDF output changed." >&2
+echo "If these changes are intentional, bypass with: SKIP_PDF_CHECK=1 git commit ... (or --no-verify)" >&2
+exit 1
